@@ -16,4 +16,13 @@ public class Pessoa {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "Nome", nullable = false)
+    private String nome;
+
+    @Column(name = "Data_Nascimento", nullable = false)
+    private String dataNascimento;
+
+    @ManyToOne
+    @JoinColumn(name = "enderecoId")
+    private Endereco endereco;
 }
