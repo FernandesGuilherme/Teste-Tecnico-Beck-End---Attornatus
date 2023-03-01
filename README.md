@@ -1,7 +1,6 @@
 # Teste-Tecnico-Beck-End---Attornatus
 Teste-Tecnico-Beck-End---Attornatus
 
-# Teste-T-cnico-Beck-End---Attornatus
 
 Avaliação Desenvolvedor Back-end Attornatus
 
