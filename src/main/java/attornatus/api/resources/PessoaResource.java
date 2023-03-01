@@ -3,7 +3,6 @@ package attornatus.api.resources;
 import attornatus.api.model.Endereco;
 import attornatus.api.model.Pessoa;
 import attornatus.api.repository.EnderecoRepository;
-import attornatus.api.repository.PessoaEnderecoRepository;
 import attornatus.api.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +18,6 @@ public class PessoaResource {
 
     @Autowired
     EnderecoRepository enderecoRepository;
-
-    @Autowired
-    PessoaEnderecoRepository pessoaEnderecoRepository;
 
 
     @GetMapping()
@@ -44,33 +40,29 @@ public class PessoaResource {
     }
 
     @PostMapping("/endereco/id={id}")
-    public void criarEnderecoPessoa(@RequestBody Endereco endereco, @PathVariable("id") long id) {
+    public Endereco criarEnderecoPessoa(@RequestBody Endereco endereco, @PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
             pessoa.setEndereco(endereco);
         }
-        enderecoRepository.save(endereco);
+        return enderecoRepository.save(endereco);
     }
 
-    @PutMapping ("/editar/id={id}")
-    public Pessoa editarPessoa(@PathVariable("id") long id, @RequestBody Pessoa editPessoa) {
-        Pessoa pessoa = pessoaRepository.findById(id);
+    @PutMapping ("/editar")
+    public Pessoa editarPessoa(@RequestBody Pessoa pessoa) {
+            pessoa.setId(pessoa.getId());
+            pessoa.setNome(pessoa.getNome());
+            pessoa.setDataNascimento(pessoa.getDataNascimento());
 
-        if (Objects.nonNull(pessoa)) {
-            pessoa.setNome(editPessoa.getNome());
-            pessoa.setDataNascimento(editPessoa.getDataNascimento());
-
+            pessoaRepository.save(pessoa);
             return pessoa;
         }
-        return null;
-    }
 
     @DeleteMapping ("/deletar/id={id}")
-    public void deletarPessoa(@PathVariable("id") long id) {
+    public void deletarPessoa (@PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
             pessoaRepository.deleteById(id);
         }
-
     }
 }
