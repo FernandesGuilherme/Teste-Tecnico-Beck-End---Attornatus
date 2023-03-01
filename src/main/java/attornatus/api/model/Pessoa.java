@@ -23,6 +23,6 @@ public class Pessoa {
     private String dataNascimento;
 
     @ManyToOne
-    @JoinColumn(name = "enderecoId")
+    @JoinColumn(name = "enderecoId", nullable = true)
     private Endereco endereco;
 }
