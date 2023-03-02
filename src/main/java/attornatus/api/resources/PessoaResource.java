@@ -19,14 +19,13 @@ public class PessoaResource {
     @Autowired
     EnderecoRepository enderecoRepository;
 
-
     @GetMapping()
-    public Iterable<Pessoa> listarPessoas() {
+    public Iterable <Pessoa> listarPessoas() {
         return pessoaRepository.findAll();
     }
 
     @GetMapping("/id={id}")
-    public Pessoa consultarPessoa(@PathVariable("id") long id) {
+    public Pessoa consultarPessoa (@PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
             return pessoa;
@@ -35,12 +34,12 @@ public class PessoaResource {
     }
 
     @PostMapping("/criar")
-    public Pessoa criarPessoa(@RequestBody Pessoa pessoa) {
+    public Pessoa criarPessoa (@RequestBody Pessoa pessoa) {
         return pessoaRepository.save(pessoa);
     }
 
     @PostMapping("/endereco/id={id}")
-    public Endereco criarEnderecoPessoa(@RequestBody Endereco endereco, @PathVariable("id") long id) {
+    public Endereco criarEnderecoPessoa (@RequestBody Endereco endereco, @PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
             pessoa.setEndereco(endereco);
@@ -49,10 +48,11 @@ public class PessoaResource {
     }
 
     @PutMapping ("/editar")
-    public Pessoa editarPessoa(@RequestBody Pessoa pessoa) {
-            pessoa.setId(pessoa.getId());
-            pessoa.setNome(pessoa.getNome());
-            pessoa.setDataNascimento(pessoa.getDataNascimento());
+    public Pessoa editarPessoa (@RequestBody Pessoa pessoa) {
+
+//            pessoa.setId(pessoa.getId());
+//            pessoa.setNome(pessoa.getNome());
+//            pessoa.setDataNascimento(pessoa.getDataNascimento());
 
             pessoaRepository.save(pessoa);
             return pessoa;

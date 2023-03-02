@@ -2,14 +2,11 @@ package attornatus.api.model;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
+
+@Data
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,4 +22,5 @@ public class Pessoa {
     @ManyToOne
     @JoinColumn(name = "enderecoId", nullable = true)
     private Endereco endereco;
+
 }

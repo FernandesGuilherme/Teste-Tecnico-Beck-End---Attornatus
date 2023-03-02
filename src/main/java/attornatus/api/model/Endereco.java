@@ -26,7 +26,7 @@ public class Endereco {
     @Column(name = "Cidade", nullable = false)
     private String cidade;
 
-    @Column(name = "Principal", nullable = false)
+    @Column(name = "Principal", nullable = false) //Se true siginifica que o endereço é o principal
     private boolean principal;
 
 }
