@@ -1,6 +1,5 @@
 package attornatus.api.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

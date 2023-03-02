@@ -25,7 +25,7 @@ public class PessoaResource {
         return pessoaRepository.findAll();
     }
 
-    @GetMapping("/id={id}")
+    @GetMapping("/{id}")
     public Pessoa consultarPessoa (@PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
@@ -39,7 +39,7 @@ public class PessoaResource {
         return pessoaRepository.save(pessoa);
     }
 
-    @PostMapping("/endereco/id={id}")
+    @PostMapping("/endereco/{id}")
     public Endereco criarEnderecoPessoa (@Valid @RequestBody Endereco endereco, @PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
@@ -49,17 +49,17 @@ public class PessoaResource {
     }
 
     @PutMapping ("/editar")
-    public Pessoa editarPessoa ( @Valid @RequestBody Pessoa pessoa) {
+    public Pessoa editarPessoa (@Valid @PathVariable("id") long id, @RequestBody Pessoa pessoa ) {
+            Pessoa pessoaBD = pessoaRepository.findById(id);
 
-//            pessoa.setId(pessoa.getId());
-//            pessoa.setNome(pessoa.getNome());
-//            pessoa.setDataNascimento(pessoa.getDataNascimento());
+            pessoaBD.setNome(pessoa.getNome());
+            pessoaBD.setDataNascimento(pessoa.getDataNascimento());
+            pessoaRepository.save(pessoaBD);
 
-            pessoaRepository.save(pessoa);
             return pessoa;
         }
 
-    @DeleteMapping ("/deletar/id={id}")
+    @DeleteMapping ("/deletar/{id}")
     public void deletarPessoa (@Valid @PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
