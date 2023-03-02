@@ -4,6 +4,7 @@ import attornatus.api.model.Endereco;
 import attornatus.api.model.Pessoa;
 import attornatus.api.repository.EnderecoRepository;
 import attornatus.api.repository.PessoaRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,12 +35,12 @@ public class PessoaResource {
     }
 
     @PostMapping("/criar")
-    public Pessoa criarPessoa (@RequestBody Pessoa pessoa) {
+    public Pessoa criarPessoa (@RequestBody @Valid Pessoa pessoa) {
         return pessoaRepository.save(pessoa);
     }
 
     @PostMapping("/endereco/id={id}")
-    public Endereco criarEnderecoPessoa (@RequestBody Endereco endereco, @PathVariable("id") long id) {
+    public Endereco criarEnderecoPessoa (@Valid @RequestBody Endereco endereco, @PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
             pessoa.setEndereco(endereco);
@@ -48,7 +49,7 @@ public class PessoaResource {
     }
 
     @PutMapping ("/editar")
-    public Pessoa editarPessoa (@RequestBody Pessoa pessoa) {
+    public Pessoa editarPessoa ( @Valid @RequestBody Pessoa pessoa) {
 
 //            pessoa.setId(pessoa.getId());
 //            pessoa.setNome(pessoa.getNome());
@@ -59,7 +60,7 @@ public class PessoaResource {
         }
 
     @DeleteMapping ("/deletar/id={id}")
-    public void deletarPessoa (@PathVariable("id") long id) {
+    public void deletarPessoa (@Valid @PathVariable("id") long id) {
         Pessoa pessoa = pessoaRepository.findById(id);
         if (Objects.nonNull(pessoa)) {
             pessoaRepository.deleteById(id);
